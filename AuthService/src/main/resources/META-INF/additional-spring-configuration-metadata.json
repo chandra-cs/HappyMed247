@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "jwt.secret",
+    "type": "java.lang.String",
+    "description": " 'jwt.secret' used in JwtProvider.java"
+  },
+  {
+    "name": "jwt.access-expiry",
+    "type": "java.lang.String",
+    "description": "'jwt.access-expiry' used in JwtProvider.java"
+  },
+  {
+    "name": "jwt.refresh-expiry",
+    "type": "java.lang.String",
+    "description": "'jwt.refresh-expiry' used in JwtProvider.java-chandra"
+  }
+]}
