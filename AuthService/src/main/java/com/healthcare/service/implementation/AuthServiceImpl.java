@@ -1,11 +1,11 @@
-package com.healthcare.service;
+package com.healthcare.service.implementation;
 
 import com.healthcare.model.entity.Role;
 import com.healthcare.model.entity.User;
 import com.healthcare.repository.IUserRepository;
+import com.healthcare.service.interfaces.IAuthService;
 import com.healthcare.utility.JwtProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

@@ -2,9 +2,8 @@ package com.healthcare.controller;
 
 import com.healthcare.model.dto.request.LoginRequestDTO;
 import com.healthcare.model.dto.response.LoginResponseDTO;
-import com.healthcare.service.IAuthService;
+import com.healthcare.service.interfaces.IAuthService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

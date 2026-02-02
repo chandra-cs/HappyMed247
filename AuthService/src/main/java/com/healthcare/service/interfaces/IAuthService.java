@@ -1,4 +1,4 @@
-package com.healthcare.service;
+package com.healthcare.service.interfaces;
 
 public interface IAuthService {
 
