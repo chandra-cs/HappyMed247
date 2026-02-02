@@ -1,4 +1,4 @@
-package com.healthcare.dummy;
+package com.healthcare.runner;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,7 +11,7 @@ import com.healthcare.repository.IUserRepository;
 
 import lombok.RequiredArgsConstructor;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class DummyDataLoader implements CommandLineRunner {
 	
