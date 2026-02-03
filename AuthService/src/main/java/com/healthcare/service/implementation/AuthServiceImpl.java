@@ -10,8 +10,11 @@ import com.healthcare.model.entity.User;
 import com.healthcare.repository.IRoleRepository;
 import com.healthcare.repository.IUserRepository;
 import com.healthcare.service.interfaces.IAuthService;
+import com.healthcare.service.interfaces.IEmailService;
 import com.healthcare.utility.JwtProvider;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +35,8 @@ public class AuthServiceImpl implements IAuthService {
     private final JwtProvider jwtProvider;
 
     private final HappyMedUserDetailsService  userDetailsService;
+
+    private final IEmailService emailService;
 
     public String login(String username, String password) {
 
@@ -54,11 +59,12 @@ public class AuthServiceImpl implements IAuthService {
 
         User user = new User(101,username,"test@gmail.com",password,roles,true,false);
 
+
         return jwtProvider.generateToken(user);
     }
 
     @Override
-    public RegisterResponseDTO register(RegisterRequestDTO registerRequestDTO) throws UsernameAlreadyExistsException {
+    public RegisterResponseDTO register(RegisterRequestDTO registerRequestDTO)  {
 
         //check whether user exist by email or username
         if(!registerRequestDTO.getPassword().equals(registerRequestDTO.getConfirmPassword())) {
@@ -77,10 +83,32 @@ public class AuthServiceImpl implements IAuthService {
         //encode the password Using BCryptPasswordEncoder
         user.setPassword(encoder.encode(registerRequestDTO.getPassword()));
 
+        //save the Role object
+        Role role = roleRepo.findByName("USER")
+                .orElseThrow(() -> new RuntimeException("Role USER not found"));
+
+        user.setRoles(Set.of(role));
+
+        //send otp dummy otp
+
+        try{
+            emailService.sendOtpEmail(user.getEmail(),"HM555555");
+        } catch (MessagingException e) {
+           return
+                   RegisterResponseDTO.builder()
+                           .message("Sending OTP failed Please try again !!")
+                           .statusCode(404)
+                           .build();
+        }
+
+
         //save the user object
+        User savedUser = userRepo.save(user);
 
-
-        return null;
+        return RegisterResponseDTO.builder()
+                .statusCode(HttpStatus.CREATED.value())
+                .message("User Successfully Saved on AuthService")
+                .build();
     }
 
 

@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-@AllArgsConstructor
 public class PasswordMismatchException extends RuntimeException {
 
-    private String message;
+    public PasswordMismatchException(String message) {
+        super(message);
+    }
 
 
 }

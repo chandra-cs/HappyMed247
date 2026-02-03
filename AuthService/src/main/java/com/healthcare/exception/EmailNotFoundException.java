@@ -4,12 +4,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-@Data
-@RequiredArgsConstructor
+
+@NoArgsConstructor
 public class EmailNotFoundException extends Exception {
 
-    private final String message;
-
-
+    public EmailNotFoundException(String message) {
+        super(message);
+    }
 
 }

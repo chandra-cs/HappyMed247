@@ -1,7 +1,9 @@
 package com.healthcare.controller;
 
 import com.healthcare.model.dto.request.LoginRequestDTO;
+import com.healthcare.model.dto.request.RegisterRequestDTO;
 import com.healthcare.model.dto.response.LoginResponseDTO;
+import com.healthcare.model.dto.response.RegisterResponseDTO;
 import com.healthcare.service.interfaces.IAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/auth/v1")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -37,4 +39,12 @@ public class AuthController {
                 .accessToken(tokenMap)
                 .build();
     }
+
+
+    @PostMapping("/register")
+    public RegisterResponseDTO register(@RequestBody RegisterRequestDTO req) {
+        return authService.register(req);
+    }
+
+
 }
