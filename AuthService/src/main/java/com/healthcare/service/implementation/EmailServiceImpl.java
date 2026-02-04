@@ -41,19 +41,21 @@ public class EmailServiceImpl implements IEmailService {
        */
 
 
-            MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
 
-            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-            helper.setTo(toEmail);
-            helper.setSubject("Registration OTP for HappyMed247");
-            helper.setText(buildOtpEmailBody(otp), false);
-            helper.setFrom(senderMail);
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+        helper.setTo(toEmail);
+        helper.setSubject("Registration OTP for HappyMed247");
+        helper.setText(buildOtpEmailBody(otp), false);
+        helper.setFrom(senderMail);
 
-
+        /*
         ClassPathResource resource = new ClassPathResource("image/HappyMedBanner.png");
-            helper.addAttachment("banner.img",resource);
-            mailSender.send(mimeMessage);
-        }
+        helper.addAttachment("banner.img",resource);
+        */
+        mailSender.send(mimeMessage);
+
+    }
 
 
     private String buildOtpEmailBody(String otp) {
@@ -68,7 +70,7 @@ public class EmailServiceImpl implements IEmailService {
                 Please do not share this OTP with anyone.
 
                 Regards,
-                Personal Finance Tracker Team
+                HappyMed247 Team
                 """.formatted(otp);
     }
 }

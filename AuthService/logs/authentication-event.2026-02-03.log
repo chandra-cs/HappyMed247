@@ -1,0 +1,15 @@
+2026-02-03 11:58:51 INFO  com.healthcare.listener.AuthenticationEventListener - AuthenticationEventLogger initialized
+2026-02-03 12:24:01 INFO  com.healthcare.listener.AuthenticationEventListener - AuthenticationEventLogger initialized
+2026-02-03 12:25:20 INFO  com.healthcare.listener.AuthenticationEventListener - AuthenticationEventLogger initialized
+2026-02-03 12:32:25 INFO  com.healthcare.listener.AuthenticationEventListener - AuthenticationEventLogger initialized
+2026-02-03 12:55:05 INFO  com.healthcare.listener.AuthenticationEventListener - AuthenticationEventLogger initialized
+2026-02-03 14:51:08 INFO  com.healthcare.listener.AuthenticationEventListener - AuthenticationEventLogger initialized
+2026-02-03 14:53:04 INFO  com.healthcare.listener.AuthenticationEventListener - AuthenticationEventLogger initialized
+2026-02-03 14:59:52 INFO  com.healthcare.listener.AuthenticationEventListener - AuthenticationEventLogger initialized
+2026-02-03 15:01:00 INFO  com.healthcare.listener.AuthenticationEventListener - AuthenticationEventLogger initialized
+2026-02-03 15:14:14 INFO  com.healthcare.listener.AuthenticationEventListener - AuthenticationEventLogger initialized
+2026-02-03 15:22:16 INFO  com.healthcare.listener.AuthenticationEventListener - AuthenticationEventLogger initialized
+2026-02-03 16:02:47 INFO  com.healthcare.listener.AuthenticationEventListener - AuthenticationEventLogger initialized
+2026-02-03 16:10:34 INFO  com.healthcare.listener.AuthenticationEventListener - AuthenticationEventLogger initialized
+2026-02-03 16:11:22 INFO  com.healthcare.listener.AuthenticationEventListener - AuthenticationEventLogger initialized
+2026-02-03 16:12:11 INFO  com.healthcare.listener.AuthenticationEventListener - AuthenticationEventLogger initialized

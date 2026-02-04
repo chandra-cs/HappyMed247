@@ -43,6 +43,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public RegisterResponseDTO register(@RequestBody RegisterRequestDTO req) {
+
         return authService.register(req);
     }
 

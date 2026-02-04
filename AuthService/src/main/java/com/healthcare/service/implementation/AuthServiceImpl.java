@@ -1,6 +1,7 @@
 package com.healthcare.service.implementation;
 
 import com.healthcare.exception.PasswordMismatchException;
+import com.healthcare.exception.RoleNameNotFoundException;
 import com.healthcare.exception.UsernameAlreadyExistsException;
 import com.healthcare.mapper.RegisterModelMapper;
 import com.healthcare.model.dto.request.RegisterRequestDTO;
@@ -18,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.RoleNotFoundException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -84,8 +86,8 @@ public class AuthServiceImpl implements IAuthService {
         user.setPassword(encoder.encode(registerRequestDTO.getPassword()));
 
         //save the Role object
-        Role role = roleRepo.findByName("USER")
-                .orElseThrow(() -> new RuntimeException("Role USER not found"));
+        Role role = roleRepo.findByName(registerRequestDTO.getRole())
+                .orElseThrow(() -> new RoleNameNotFoundException("Role USER not found"));
 
         user.setRoles(Set.of(role));
 
