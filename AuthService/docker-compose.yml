@@ -1,0 +1,10 @@
+services:
+  authservice:
+    image: authservice
+    ports:
+      - "9094:9094"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      JWT_SECRET: chandra-moon-secret-jwt-key-2109-2612
+      SPRING_MAIL_USERNAME: happy.bankingservices@gmail.com
+      SPRING_MAIL_PASSWORD: gqybrewljqzezdrh
