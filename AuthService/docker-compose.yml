@@ -1,10 +1,38 @@
+version: "3.9"
+
 services:
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    environment:
+      POSTGRES_DB: HappyMed247
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: MOON
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  eureka:
+    image: eureka-service  # replace with your Eureka server image
+    container_name: eureka
+    ports:
+      - "8761:8761"
+
   authservice:
     image: authservice
+    container_name: authservice
     ports:
-      - "9094:9094"
+      - "9095:9094"
     environment:
       SPRING_PROFILES_ACTIVE: docker
       JWT_SECRET: chandra-moon-secret-jwt-key-2109-2612
       SPRING_MAIL_USERNAME: happy.bankingservices@gmail.com
       SPRING_MAIL_PASSWORD: gqybrewljqzezdrh
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
+    depends_on:
+      - postgres
+      - eureka
+
+volumes:
+  postgres-data:
