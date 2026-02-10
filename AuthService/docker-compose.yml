@@ -14,13 +14,13 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
   eureka:
-    image: eureka-service
+    image: eureka-server
     container_name: eureka
     ports:
       - "8761:8761"
 
   authservice:
-    image: authservice
+    image: auth-service
     container_name: authservice
     ports:
       - "9095:9094"

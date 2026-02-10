@@ -1,6 +1,7 @@
 package com.healthcare.exception.handler;
 
 import com.healthcare.exception.RoleAlreadyExistsException;
+import com.healthcare.exception.RoleNameNotFoundException;
 import com.healthcare.model.dto.response.ErrorResponseDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +16,14 @@ import static com.healthcare.exception.handler.ErrorResponseDTOBuilder.buildErro
 @RestControllerAdvice
 public class RoleExcetionHandler {
 
-    @ExceptionHandler
+    @ExceptionHandler(RoleAlreadyExistsException.class)
     public ResponseEntity<ErrorResponseDTO> handleRoleAlreadyExistsException(RoleAlreadyExistsException ex, HttpServletRequest request) {
         return buildErrorResponse(ex,request, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(RoleNameNotFoundException.class)
+    public ResponseEntity<ErrorResponseDTO> handleRoleNameNotFoundException(RoleNameNotFoundException ex, HttpServletRequest request) {
+        return buildErrorResponse(ex,request, HttpStatus.NOT_FOUND);
     }
 
 }//class

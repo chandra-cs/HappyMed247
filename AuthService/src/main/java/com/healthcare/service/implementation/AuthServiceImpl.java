@@ -87,7 +87,7 @@ public class AuthServiceImpl implements IAuthService {
 
         //save the Role object
         Role role = roleRepo.findByName(registerRequestDTO.getRole())
-                .orElseThrow(() -> new RoleNameNotFoundException("Role USER not found"));
+                .orElseThrow(() -> new RoleNameNotFoundException("Role not found : "+registerRequestDTO.getRole()));
 
         user.setRoles(Set.of(role));
 
