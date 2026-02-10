@@ -1,4 +1,4 @@
-package com.healthcare.exception;
+package com.healthcare.exception.role;
 
 import lombok.NoArgsConstructor;
 

@@ -1,6 +1,6 @@
 package com.healthcare.service.implementation;
 
-import com.healthcare.exception.EmailNotFoundException;
+import com.healthcare.exception.auth.EmailNotFoundException;
 import com.healthcare.model.entity.User;
 import com.healthcare.repository.IUserRepository;
 import com.healthcare.service.interfaces.IHappyMedUserDetailsService;

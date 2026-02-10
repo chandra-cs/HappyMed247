@@ -1,8 +1,4 @@
-package com.healthcare.exception;
-
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+package com.healthcare.exception.auth;
 
 
 public class UsernameAlreadyExistsException extends RuntimeException {

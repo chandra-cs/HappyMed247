@@ -1,6 +1,5 @@
-package com.healthcare.exception;
+package com.healthcare.exception.auth;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

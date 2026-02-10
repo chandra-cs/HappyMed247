@@ -1,8 +1,6 @@
-package com.healthcare.exception;
+package com.healthcare.exception.auth;
 
-import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 
 @NoArgsConstructor

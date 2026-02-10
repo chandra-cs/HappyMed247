@@ -1,4 +1,4 @@
-package com.healthcare.exception;
+package com.healthcare.exception.auth;
 
 
 public class UsernameNotFoundException extends Exception {

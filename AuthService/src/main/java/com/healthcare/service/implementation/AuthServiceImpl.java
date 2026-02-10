@@ -1,8 +1,8 @@
 package com.healthcare.service.implementation;
 
-import com.healthcare.exception.PasswordMismatchException;
-import com.healthcare.exception.RoleNameNotFoundException;
-import com.healthcare.exception.UsernameAlreadyExistsException;
+import com.healthcare.exception.auth.PasswordMismatchException;
+import com.healthcare.exception.role.RoleNameNotFoundException;
+import com.healthcare.exception.auth.UsernameAlreadyExistsException;
 import com.healthcare.mapper.RegisterModelMapper;
 import com.healthcare.model.dto.request.RegisterRequestDTO;
 import com.healthcare.model.dto.response.RegisterResponseDTO;
@@ -19,7 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.RoleNotFoundException;
 import java.util.HashSet;
 import java.util.Set;
 
