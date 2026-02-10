@@ -14,7 +14,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
   eureka:
-    image: eureka-service  # replace with your Eureka server image
+    image: eureka-service
     container_name: eureka
     ports:
       - "8761:8761"

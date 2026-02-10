@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  eureka:
+    build: .
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+
+# run this image using this command : docker-compose up --build

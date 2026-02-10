@@ -26,7 +26,7 @@ public class AuthController {
     @PostMapping("/login")
     public LoginResponseDTO login(@RequestBody LoginRequestDTO req) {
 
-        //get the Jwt token from authService
+
         String token = authService.login(req.getUsername(), req.getPassword());
 
         //send it through LoginResponseDto;
@@ -43,7 +43,6 @@ public class AuthController {
 
     @PostMapping("/register")
     public RegisterResponseDTO register(@RequestBody RegisterRequestDTO req) {
-
         return authService.register(req);
     }
 
