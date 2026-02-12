@@ -43,3 +43,8 @@ build/
 .apt_generated/
 .sts4-cache/
 
+
+### for macos
+.DS_Store
+
+
