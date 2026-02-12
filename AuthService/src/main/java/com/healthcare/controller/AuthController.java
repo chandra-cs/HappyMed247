@@ -5,6 +5,7 @@ import com.healthcare.model.dto.request.RegisterRequestDTO;
 import com.healthcare.model.dto.response.LoginResponseDTO;
 import com.healthcare.model.dto.response.RegisterResponseDTO;
 import com.healthcare.service.interfaces.IAuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,10 +25,10 @@ public class AuthController {
     private final IAuthService authService;
 
     @PostMapping("/login")
-    public LoginResponseDTO login(@RequestBody LoginRequestDTO req) {
+    public LoginResponseDTO login(@RequestBody LoginRequestDTO req, HttpServletRequest httpServletRequest) {
 
 
-        String token = authService.login(req.getUsername(), req.getPassword());
+        String token = authService.login(req, httpServletRequest);
 
         //send it through LoginResponseDto;
         Map<String, String> tokenMap = new HashMap<>();

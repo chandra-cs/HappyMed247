@@ -4,6 +4,8 @@ import com.healthcare.exception.auth.PasswordMismatchException;
 import com.healthcare.exception.role.RoleNameNotFoundException;
 import com.healthcare.exception.auth.UsernameAlreadyExistsException;
 import com.healthcare.mapper.RegisterModelMapper;
+import com.healthcare.model.dto.request.LoginHistoryDTO;
+import com.healthcare.model.dto.request.LoginRequestDTO;
 import com.healthcare.model.dto.request.RegisterRequestDTO;
 import com.healthcare.model.dto.response.RegisterResponseDTO;
 import com.healthcare.model.entity.Role;
@@ -12,8 +14,10 @@ import com.healthcare.repository.IRoleRepository;
 import com.healthcare.repository.IUserRepository;
 import com.healthcare.service.interfaces.IAuthService;
 import com.healthcare.service.interfaces.IEmailService;
+import com.healthcare.service.interfaces.ILoginHistoryService;
 import com.healthcare.utility.JwtProvider;
 import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,7 +43,9 @@ public class AuthServiceImpl implements IAuthService {
 
     private final IEmailService emailService;
 
-    public String login(String username, String password) {
+    private final ILoginHistoryService loginHistory;
+
+    public String login(LoginRequestDTO loginRequestDTO, HttpServletRequest request) {
 
 
         /**
@@ -53,12 +59,27 @@ public class AuthServiceImpl implements IAuthService {
 
         //for testing purpose
         Role role = new Role();
-        role.setId(1);
+        role.setId(3);
         role.setName("ROLE_USER");
         Set<Role> roles = new HashSet<>();
         roles.add(role);
 
-        User user = new User(101,username,"test@gmail.com",password,roles,true,false);
+        User user = new User(101,loginRequestDTO.getUsername(),"test@gmail.com",loginRequestDTO.getPassword(),roles,true,false);
+
+
+        //create LoginHistoryDTO for populate to LoginHistoryService
+        LoginHistoryDTO loginHistoryDTO = new LoginHistoryDTO();
+
+        loginHistoryDTO.setUserId(user.getId());
+        loginHistoryDTO.setIpAddress(request.getRemoteAddr());
+        loginHistoryDTO.setSuccessStatus(true);
+        loginHistoryDTO.setUserAgent(request.getHeader("User-Agent"));
+
+        //now we have to write logic for saving loginHistory
+
+        loginHistory.recordLogin(loginHistoryDTO);
+
+
 
 
         return jwtProvider.generateToken(user);

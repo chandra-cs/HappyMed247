@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.Instant;
@@ -21,4 +22,5 @@ public class LoginHistory {
     private String userAgent;
     private boolean success;
     private Instant loginTime;
+
 }
