@@ -20,4 +20,5 @@ public class AuditLog {
     private String action;
     private String endpoint;
     private Instant timestamp;
+
 }
