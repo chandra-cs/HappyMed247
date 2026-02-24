@@ -6,6 +6,7 @@ import com.healthcare.model.dto.response.LoginResponseDTO;
 import com.healthcare.model.dto.response.RegisterResponseDTO;
 import com.healthcare.service.interfaces.IAuthService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +26,7 @@ public class AuthController {
     private final IAuthService authService;
 
     @PostMapping("/login")
-    public LoginResponseDTO login(@RequestBody LoginRequestDTO req, HttpServletRequest httpServletRequest) {
+    public LoginResponseDTO login(@RequestBody @Valid LoginRequestDTO req, HttpServletRequest httpServletRequest) {
 
 
         String token = authService.login(req, httpServletRequest);
@@ -43,7 +44,7 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public RegisterResponseDTO register(@RequestBody RegisterRequestDTO req) {
+    public RegisterResponseDTO register(@RequestBody @Valid RegisterRequestDTO req) {
         return authService.register(req);
     }
 

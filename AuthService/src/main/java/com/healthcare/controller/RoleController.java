@@ -5,6 +5,7 @@ import com.healthcare.model.dto.request.RoleUpdateDTO;
 import com.healthcare.model.dto.response.RoleCreationResponseDTO;
 import com.healthcare.model.entity.Role;
 import com.healthcare.service.interfaces.IRoleService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class RoleController {
     private final IRoleService roleService;
 
     @PostMapping("/create")
-    public ResponseEntity<RoleCreationResponseDTO> createRole(@RequestBody RoleCreationRequestDTO roleCreationRequestDTO) {
+    public ResponseEntity<RoleCreationResponseDTO> createRole(@RequestBody @Valid RoleCreationRequestDTO roleCreationRequestDTO) {
         RoleCreationResponseDTO roleCreationResponse = roleService.createRole(roleCreationRequestDTO);
         return new ResponseEntity<>(roleCreationResponse, HttpStatus.OK);
     }
