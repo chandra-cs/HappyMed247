@@ -3,17 +3,20 @@ package com.patient.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
 
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 public class Patient {
     @Id
     @GeneratedValue(generator ="gen1", strategy = GenerationType.SEQUENCE)
