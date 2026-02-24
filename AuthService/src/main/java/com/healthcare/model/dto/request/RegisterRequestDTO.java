@@ -24,7 +24,7 @@ public class RegisterRequestDTO {
     private String confirmPassword;
 
     @NotBlank(message = "Role can not be empty")
-    @Pattern(regexp = "ADMIN | SUPER_ADMIN | DOCTOR | PATIENT |NURSE | OTHER"
+    @Pattern(regexp = "ADMIN|SUPER_ADMIN|DOCTOR|PATIENT|NURSE|OTHER"
     ,message = "Role must be one of ADMIN, SUPER_ADMIN, DOCTOR, PATIENT, OTHER")
     private String role;
 }
