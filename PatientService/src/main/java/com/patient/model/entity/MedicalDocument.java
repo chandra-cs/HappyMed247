@@ -1,8 +1,13 @@
 package com.patient.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
+@Table(name = "medical_document")
+@Data
 public class MedicalDocument {
 
     @Id
@@ -12,5 +17,10 @@ public class MedicalDocument {
 
     private String fileName;
     private String filePath;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Patient patient;
 
 }

@@ -1,8 +1,13 @@
 package com.patient.model.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
+@Data
+@Table(name = "allergy")
 public class Allergy {
 
     @Id
@@ -13,5 +18,10 @@ public class Allergy {
     private String allergyName;
     private String reaction;
     private String severity;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "patient_id",nullable = false)
+    private Patient patient;
 
 }

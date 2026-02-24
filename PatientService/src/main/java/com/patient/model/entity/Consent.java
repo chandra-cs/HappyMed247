@@ -1,13 +1,16 @@
 package com.patient.model.entity;
 
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.*;
+import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "consent")
+@Data
 public class Consent {
     @Id
     @GeneratedValue(generator = "gen3",strategy = GenerationType.SEQUENCE)
@@ -16,4 +19,10 @@ public class Consent {
     private String consentType;
     private boolean isGiven;
     private LocalDate consentDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Patient patient;
+
 }
