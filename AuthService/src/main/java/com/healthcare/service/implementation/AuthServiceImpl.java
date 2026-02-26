@@ -88,11 +88,18 @@ public class AuthServiceImpl implements IAuthService {
     @Override
     public RegisterResponseDTO register(RegisterRequestDTO registerRequestDTO)  {
 
-        //check whether user exist by email or username
+        /**
+         *
+         * removed confirmPassword field from RegisterRequestDto since it is a frontend concern
+         * and while patient-service or relevant service for register purpose it is not good to travel the confirmPassword over microservices
+         *
         if(!registerRequestDTO.getPassword().equals(registerRequestDTO.getConfirmPassword())) {
             throw new PasswordMismatchException("Password and Confirm Password must be same");
         }
-        else if (userRepo.findByUsername(registerRequestDTO.getUsername()).isPresent()) {
+         */
+
+        //check whether user exist by email or username
+        if (userRepo.findByUsername(registerRequestDTO.getUsername()).isPresent()) {
             throw new UsernameAlreadyExistsException("User already Exists having username:"+registerRequestDTO.getUsername());
         } else if (userRepo.findByEmail(registerRequestDTO.getEmail()).isPresent()) {
             throw new UsernameAlreadyExistsException("User already Exists having email:"+registerRequestDTO.getEmail());

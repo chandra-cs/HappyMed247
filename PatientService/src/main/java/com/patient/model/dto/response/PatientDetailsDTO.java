@@ -8,8 +8,9 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class PatientResponseDTO {
+public class PatientDetailsDTO {
     private Long patientId;
+    private String patientUsername;
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
@@ -22,5 +23,4 @@ public class PatientResponseDTO {
     private String insuranceNumber;
     private String insuranceType;
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 }

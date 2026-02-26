@@ -20,8 +20,6 @@ public class RegisterRequestDTO {
     @NotBlank(message = "Password can not be empty")
     private String password;
 
-    @NotBlank(message = "Confirm password can not be empty")
-    private String confirmPassword;
 
     @NotBlank(message = "Role can not be empty")
     @Pattern(regexp = "ADMIN|SUPER_ADMIN|DOCTOR|PATIENT|NURSE|OTHER"

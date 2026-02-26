@@ -27,11 +27,17 @@ public class Patient {
     @GeneratedValue(generator ="gen1", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "gen1",sequenceName = "patient_seq", initialValue = 100, allocationSize = 1)
     private Long patientId;
+
+
+
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
+
+    @Column(unique = true, nullable = false)
     private String email;
     private String phoneNumber;
+    private String gender;
     private String address;
     private String city;
     private String state;

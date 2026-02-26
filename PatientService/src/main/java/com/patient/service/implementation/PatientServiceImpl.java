@@ -1,8 +1,9 @@
 package com.patient.service.implementation;
 
 import com.patient.exception.PatientNotFoundException;
+import com.patient.model.dto.request.PatientRegisterRequestDTO;
 import com.patient.model.dto.request.PatientRequestDTO;
-import com.patient.model.dto.response.PatientResponseDTO;
+import com.patient.model.dto.response.PatientDetailsDTO;
 import com.patient.model.entity.Patient;
 import com.patient.repository.IPatientRepository;
 import com.patient.service.interfaces.IPatientService;
@@ -21,7 +22,8 @@ public class PatientServiceImpl implements IPatientService {
     private final IPatientRepository patientRepository;
 
     @Override
-    public PatientResponseDTO registerPatient(PatientRequestDTO request) {
+    public PatientDetailsDTO registerPatient(PatientRegisterRequestDTO request) {
+
         Patient patient = mapToEntity(request);
         Patient saved = patientRepository.save(patient);
         return mapToResponseDTO(saved);
@@ -29,14 +31,14 @@ public class PatientServiceImpl implements IPatientService {
 
     @Override
     @Transactional(readOnly = true)
-    public PatientResponseDTO getPatientById(Long patientId) {
+    public PatientDetailsDTO getPatientById(Long patientId) {
         Patient patient = findPatientOrThrow(patientId);
         return mapToResponseDTO(patient);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<PatientResponseDTO> getAllPatients() {
+    public List<PatientDetailsDTO> getAllPatients() {
         return patientRepository.findAll()
                 .stream()
                 .map(this::mapToResponseDTO)
@@ -44,7 +46,7 @@ public class PatientServiceImpl implements IPatientService {
     }
 
     @Override
-    public PatientResponseDTO updatePatient(Long patientId, PatientRequestDTO request) {
+    public PatientDetailsDTO updatePatient(Long patientId, PatientRegisterRequestDTO request) {
         Patient patient = findPatientOrThrow(patientId);
 
         patient.setFirstName(request.getFirstName());
@@ -79,7 +81,7 @@ public class PatientServiceImpl implements IPatientService {
 
     // ========== MAPPER METHODS ==========
 
-    private Patient mapToEntity(PatientRequestDTO request) {
+    private Patient mapToEntity(PatientRegisterRequestDTO request) {
         Patient patient = new Patient();
         patient.setFirstName(request.getFirstName());
         patient.setLastName(request.getLastName());
@@ -95,8 +97,8 @@ public class PatientServiceImpl implements IPatientService {
         return patient;
     }
 
-    private PatientResponseDTO mapToResponseDTO(Patient patient) {
-        return PatientResponseDTO.builder()
+    private PatientDetailsDTO mapToResponseDTO(Patient patient) {
+        return PatientDetailsDTO.builder()
                 .patientId(patient.getPatientId())
                 .firstName(patient.getFirstName())
                 .lastName(patient.getLastName())
@@ -110,7 +112,6 @@ public class PatientServiceImpl implements IPatientService {
                 .insuranceNumber(patient.getInsuranceNumber())
                 .insuranceType(patient.getInsuranceType())
                 .createdAt(patient.getCreatedAt())
-                .updatedAt(patient.getUpdatedAt())
                 .build();
     }
 }
