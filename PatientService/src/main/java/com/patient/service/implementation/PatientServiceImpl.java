@@ -3,6 +3,7 @@ package com.patient.service.implementation;
 import com.patient.exception.PatientNotFoundException;
 import com.patient.model.dto.request.PatientRegisterRequestDTO;
 import com.patient.model.dto.response.PatientDetailsDTO;
+import com.patient.model.dto.response.PatientRegistrationResponseDTO;
 import com.patient.model.entity.Patient;
 import com.patient.repository.IPatientRepository;
 import com.patient.service.interfaces.IPatientService;
@@ -21,11 +22,16 @@ public class PatientServiceImpl implements IPatientService {
     private final IPatientRepository patientRepository;
 
     @Override
-    public PatientDetailsDTO registerPatient(PatientRegisterRequestDTO request) {
+    public PatientRegistrationResponseDTO registerPatient(PatientRegisterRequestDTO request) {
 
         Patient patient = mapToEntity(request);
         Patient saved = patientRepository.save(patient);
-        return mapToResponseDTO(saved);
+
+        return PatientRegistrationResponseDTO.builder()
+                .username(request.getUsername())
+                .message("Patient registered successfully!")
+                .build();
+
     }
 
     @Override
@@ -78,7 +84,7 @@ public class PatientServiceImpl implements IPatientService {
                         "Patient not found with id: " + patientId));
     }
 
-    // ========== MAPPER METHODS ==========
+   //mappers
 
     private Patient mapToEntity(PatientRegisterRequestDTO request) {
         Patient patient = new Patient();
@@ -89,7 +95,7 @@ public class PatientServiceImpl implements IPatientService {
         patient.setPhoneNumber(request.getPhoneNumber());
         patient.setAddress(request.getAddress());
         patient.setCity(request.getCity());
-        patient.setGender(request.getGender());
+        patient.setGender(request.getGender().toUpperCase());
         patient.setState(request.getState());
         patient.setInsuranceProvider(request.getInsuranceProvider());
         patient.setInsuranceNumber(request.getInsuranceNumber());
