@@ -2,7 +2,6 @@ package com.patient.service.implementation;
 
 import com.patient.exception.PatientNotFoundException;
 import com.patient.model.dto.request.PatientRegisterRequestDTO;
-import com.patient.model.dto.request.PatientRequestDTO;
 import com.patient.model.dto.response.PatientDetailsDTO;
 import com.patient.model.entity.Patient;
 import com.patient.repository.IPatientRepository;
