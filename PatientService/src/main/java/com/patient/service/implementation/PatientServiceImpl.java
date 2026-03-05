@@ -89,6 +89,7 @@ public class PatientServiceImpl implements IPatientService {
         patient.setPhoneNumber(request.getPhoneNumber());
         patient.setAddress(request.getAddress());
         patient.setCity(request.getCity());
+        patient.setGender(request.getGender());
         patient.setState(request.getState());
         patient.setInsuranceProvider(request.getInsuranceProvider());
         patient.setInsuranceNumber(request.getInsuranceNumber());

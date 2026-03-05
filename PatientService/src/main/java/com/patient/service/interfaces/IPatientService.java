@@ -1,7 +1,6 @@
 package com.patient.service.interfaces;
 
 import com.patient.model.dto.request.PatientRegisterRequestDTO;
-import com.patient.model.dto.request.PatientRequestDTO;
 import com.patient.model.dto.response.PatientDetailsDTO;
 import com.patient.model.entity.Patient;
 

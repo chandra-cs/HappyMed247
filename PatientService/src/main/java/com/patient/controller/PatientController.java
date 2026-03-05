@@ -4,7 +4,6 @@ import com.patient.client.IAuthServiceFeignClient;
 import com.patient.model.dto.client.AuthServiceRegisterRequestDTO;
 import com.patient.model.dto.client.AuthServiceRegisterResponseDTO;
 import com.patient.model.dto.request.PatientRegisterRequestDTO;
-import com.patient.model.dto.request.PatientRequestDTO;
 import com.patient.model.dto.response.PatientDetailsDTO;
 import com.patient.service.interfaces.IPatientService;
 import jakarta.validation.Valid;
@@ -24,7 +23,7 @@ public class PatientController {
 
     private final IAuthServiceFeignClient authClient;
 
-    @PostMapping
+    @PostMapping("/register")
     public ResponseEntity<PatientDetailsDTO> registerPatient(@Valid @RequestBody PatientRegisterRequestDTO request) {
 
         //use feign client to first save the credential and check whether username exists or all security related config do thosr stuff there
@@ -32,6 +31,7 @@ public class PatientController {
                 AuthServiceRegisterRequestDTO.builder()
                         .username(request.getUsername())
                         .password(request.getPassword())
+                        .email(request.getEmail())
                         .role("PATIENT")
                         .build()
         );
@@ -46,7 +46,7 @@ public class PatientController {
         return ResponseEntity.ok(patientService.getPatientById(patientId));
     }
 
-    @GetMapping
+    @GetMapping("/all-patients")
     public ResponseEntity<List<PatientDetailsDTO>> getAllPatients() {
         return ResponseEntity.ok(patientService.getAllPatients());
     }

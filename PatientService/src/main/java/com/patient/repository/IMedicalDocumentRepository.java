@@ -2,6 +2,17 @@ package com.patient.repository;
 
 import com.patient.model.entity.MedicalDocument;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+
+@Repository
 public interface IMedicalDocumentRepository extends JpaRepository<MedicalDocument, Long> {
+
+
+        List<MedicalDocument> findByPatientPatientId(Long patientId);
+        Optional<MedicalDocument> findByIdAndPatientPatientId(Long id, Long patientId);
+
+
 }
