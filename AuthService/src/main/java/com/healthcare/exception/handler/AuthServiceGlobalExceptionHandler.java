@@ -43,6 +43,11 @@ public class AuthServiceGlobalExceptionHandler {
         return buildErrorResponse(ex, request, HttpStatus.UNAUTHORIZED);
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponseDTO> handleException(Exception ex, HttpServletRequest request) {
+        return buildErrorResponse(ex, request, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 
 
 }//class

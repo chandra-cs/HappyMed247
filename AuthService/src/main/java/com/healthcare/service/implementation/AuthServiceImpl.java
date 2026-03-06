@@ -47,49 +47,6 @@ public class AuthServiceImpl implements IAuthService {
 
     private final OtpGenerator otpGenerator;
 
-    public String login(LoginRequestDTO loginRequestDTO, HttpServletRequest request) {
-
-
-//        /**
-//        User user = userRepo.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found"));
-//
-//
-//        if (!encoder.matches(password, user.getPassword())) {
-//            throw new RuntimeException("Invalid credentials");
-//        }
-//         */
-//
-//
-//
-//        //for testing purpose
-//        Role role = new Role();
-//        role.setId(3);
-//        role.setName("ROLE_USER");
-//        Set<Role> roles = new HashSet<>();
-//        roles.add(role);
-//
-//        //User user = new User(101,loginRequestDTO.getUsername(),"test@gmail.com",loginRequestDTO.getPassword(),roles,true,false);
-//
-//
-//        //create LoginHistoryDTO for populate to LoginHistoryService
-//        LoginHistoryDTO loginHistoryDTO = new LoginHistoryDTO();
-//
-//        loginHistoryDTO.setUserId(user.getId());
-//        loginHistoryDTO.setIpAddress(request.getRemoteAddr());
-//        loginHistoryDTO.setSuccessStatus(true);
-//        loginHistoryDTO.setUserAgent(request.getHeader("User-Agent"));
-//
-//        //now we have to write logic for saving loginHistory
-//
-//        loginHistory.recordLogin(loginHistoryDTO);
-//
-//
-//
-//
-//        return jwtProvider.generateToken(user);
-//
-        return null;
-    }
 
     @Override
     public RegisterResponseDTO register(RegisterRequestDTO registerRequestDTO)  {
@@ -181,5 +138,45 @@ public class AuthServiceImpl implements IAuthService {
     }//activateAccount()
 
 
+
+
+    //login feature
+    @Override
+    public String login(LoginRequestDTO loginRequestDTO, HttpServletRequest request) {
+        // 1. Find the user by username
+        User user = userRepo.findByUsername(loginRequestDTO.getUsername())
+                .orElseThrow(() -> new RuntimeException("Invalid username or password"));
+
+        // 2. Check if the account is active (OTP verified)
+        if (!user.isActive()) {
+            throw new RuntimeException("Account is not active. Please verify your OTP first.");
+        }
+
+        // 3. Verify the password
+        if (!encoder.matches(loginRequestDTO.getPassword(), user.getPassword())) {
+            // Optional: Record a failed login attempt here
+            recordLoginHistory(user, request, false);
+            throw new RuntimeException("Invalid username or password");
+        }
+
+        // 4. Record successful login history
+        recordLoginHistory(user, request, true);
+
+        // 5. Generate and return JWT token
+        return jwtProvider.generateToken(user);
+    }
+
+    /**
+     * Helper method to record login history
+     */
+    private void recordLoginHistory(User user, HttpServletRequest request, boolean status) {
+        LoginHistoryDTO loginHistoryDTO = new LoginHistoryDTO();
+        loginHistoryDTO.setUserId(user.getId());
+        loginHistoryDTO.setIpAddress(request.getRemoteAddr());
+        loginHistoryDTO.setSuccessStatus(status);
+        loginHistoryDTO.setUserAgent(request.getHeader("User-Agent"));
+
+        loginHistory.recordLogin(loginHistoryDTO);
+    }
 
 }
