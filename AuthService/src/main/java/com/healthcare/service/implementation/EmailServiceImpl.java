@@ -73,6 +73,9 @@ public class EmailServiceImpl implements IEmailService {
                 HappyMed247 Team
                 """.formatted(otp);
     }
+
+
+
 }
 
 

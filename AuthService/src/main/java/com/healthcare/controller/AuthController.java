@@ -1,5 +1,7 @@
 package com.healthcare.controller;
 
+import com.healthcare.model.dto.request.ActivateAccountRequestDTO;
+import com.healthcare.model.dto.request.ActivateAccountResposeDTO;
 import com.healthcare.model.dto.request.LoginRequestDTO;
 import com.healthcare.model.dto.request.RegisterRequestDTO;
 import com.healthcare.model.dto.response.LoginResponseDTO;
@@ -48,5 +50,10 @@ public class AuthController {
         return authService.register(req);
     }
 
+    @PostMapping("/activate")
+    public ActivateAccountResposeDTO activateAccount(@RequestBody ActivateAccountRequestDTO activateAccountRequestDTO){
+
+        return null;
+    }
 
 }

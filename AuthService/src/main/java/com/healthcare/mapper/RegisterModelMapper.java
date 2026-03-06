@@ -19,6 +19,8 @@ public class RegisterModelMapper {
         user.setUsername(registerRequestDTO.getUsername());
         user.setPassword(registerRequestDTO.getPassword());
         user.setEmail(registerRequestDTO.getEmail());
+        user.setActive(false);
+
 
         Set<Role> roles = new HashSet<>();
         Role role = new Role();
