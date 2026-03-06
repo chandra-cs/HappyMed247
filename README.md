@@ -1,4 +1,4 @@
-🏥 HappyMed247
+**🏥 HappyMed247**
 Modern Healthcare Management System
 
 HappyMed247 is a scalable, secure, and modular healthcare management platform designed to digitize hospital operations and improve patient care.
