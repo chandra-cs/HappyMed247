@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestControllerAdvice
-public class ValidationExcetionHandler {
+public class ValidationExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationException(MethodArgumentNotValidException ex) {

@@ -17,7 +17,7 @@ public class AuthenticationEventListener {
 
 
 
-    @EventListener
+    //@EventListener
     public void onSuccess(AuthenticationSuccessEvent successEvent){
         /** ways to find authentication
 
@@ -55,6 +55,7 @@ public class AuthenticationEventListener {
         log.info("Login Successful for user : {}",successEvent.getAuthentication().getName());
     }
 
+    //@EventListener
     public void onFailure(AbstractAuthenticationFailureEvent failureEvent){
         System.out.println("Authentication Failure");
         log.error("Login Failed for user : {} due to  :{}",failureEvent.getAuthentication().getName(),failureEvent.getException().getMessage());

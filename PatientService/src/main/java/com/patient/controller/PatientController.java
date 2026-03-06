@@ -4,8 +4,8 @@ import com.patient.client.IAuthServiceFeignClient;
 import com.patient.model.dto.client.AuthServiceRegisterRequestDTO;
 import com.patient.model.dto.client.AuthServiceRegisterResponseDTO;
 import com.patient.model.dto.request.PatientRegisterRequestDTO;
-import com.patient.model.dto.request.PatientRequestDTO;
 import com.patient.model.dto.response.PatientDetailsDTO;
+import com.patient.model.dto.response.PatientRegistrationResponseDTO;
 import com.patient.service.interfaces.IPatientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,14 +24,44 @@ public class PatientController {
 
     private final IAuthServiceFeignClient authClient;
 
-    @PostMapping
-    public ResponseEntity<PatientDetailsDTO> registerPatient(@Valid @RequestBody PatientRegisterRequestDTO request) {
+    /*
+    JSON to test this api change your mail accordingly for getting OTP
+
+    {
+        "username": "chandra_csi",
+        "password": "Moon@2109",
+        "firstName": "Chandrasekhar",
+        "lastName": "Jena",
+        "gender": "Male",
+        "birthDate": "2002-12-26",
+        "email": "xyz@gmail.com",
+        "phoneNumber": "1234567890",
+        "address": "Brahmapur, Nandapur, Bantala",
+        "city": "Angul",
+        "state": "Odisha",
+        "insuranceProvider": "Star Health Insurance",
+        "insuranceNumber": "SH-2024-78946",
+        "insuranceType": "COMPREHENSIVE"
+    }
+
+    Response is :
+    {
+        "message": "Patient registered successfully!",
+        "username": "chandra_csi"
+    }
+
+    MetaData : 201 Created  196ms   71B
+
+     */
+    @PostMapping("/register")
+    public ResponseEntity<PatientRegistrationResponseDTO> registerPatient(@Valid @RequestBody PatientRegisterRequestDTO request) {
 
         //use feign client to first save the credential and check whether username exists or all security related config do thosr stuff there
         AuthServiceRegisterResponseDTO authResponse = authClient.register(
                 AuthServiceRegisterRequestDTO.builder()
                         .username(request.getUsername())
                         .password(request.getPassword())
+                        .email(request.getEmail())
                         .role("PATIENT")
                         .build()
         );
@@ -46,7 +76,7 @@ public class PatientController {
         return ResponseEntity.ok(patientService.getPatientById(patientId));
     }
 
-    @GetMapping
+    @GetMapping("/all-patients")
     public ResponseEntity<List<PatientDetailsDTO>> getAllPatients() {
         return ResponseEntity.ok(patientService.getAllPatients());
     }
