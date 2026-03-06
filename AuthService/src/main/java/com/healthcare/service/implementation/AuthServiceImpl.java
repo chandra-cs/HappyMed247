@@ -154,6 +154,11 @@ public class AuthServiceImpl implements IAuthService {
         //get the user using email address
         User user = userRepo.findByEmail(activateAccountRequestDTO.getEmail()).orElseThrow(() -> new EmailNotFoundException("Email Not found, please check again."));
 
+        //check the password whether wrong or right
+        if(!encoder.matches(activateAccountRequestDTO.getPassword(), user.getPassword())) {
+            return new ActivateAccountResposeDTO("Invalid Password, Please check your password again!!",false);
+        }
+
         //check whether the user is active or not
         if(user.isActive()){
             return  new ActivateAccountResposeDTO("Account is already active", true);
@@ -168,8 +173,10 @@ public class AuthServiceImpl implements IAuthService {
             userRepo.save(user);
             return  new ActivateAccountResposeDTO("Account successfully activated", true);
         }
+        else {
+            return  new ActivateAccountResposeDTO("Invalid OTP, Check OTP again", false);
+        }
 
-        return null;
 
     }//activateAccount()
 

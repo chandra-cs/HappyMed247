@@ -52,8 +52,7 @@ public class AuthController {
 
     @PostMapping("/activate")
     public ActivateAccountResposeDTO activateAccount(@RequestBody ActivateAccountRequestDTO activateAccountRequestDTO){
-
-        return null;
+        return authService.activateAccount(activateAccountRequestDTO);
     }
 
 }
