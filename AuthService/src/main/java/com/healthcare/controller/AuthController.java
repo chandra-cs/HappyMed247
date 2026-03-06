@@ -1,11 +1,9 @@
 package com.healthcare.controller;
 
-import com.healthcare.model.dto.request.ActivateAccountRequestDTO;
-import com.healthcare.model.dto.request.ActivateAccountResposeDTO;
-import com.healthcare.model.dto.request.LoginRequestDTO;
-import com.healthcare.model.dto.request.RegisterRequestDTO;
+import com.healthcare.model.dto.request.*;
 import com.healthcare.model.dto.response.LoginResponseDTO;
 import com.healthcare.model.dto.response.RegisterResponseDTO;
+import com.healthcare.model.dto.response.ResendOtpResponseDto;
 import com.healthcare.service.interfaces.IAuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -53,6 +51,11 @@ public class AuthController {
     @PostMapping("/activate")
     public ActivateAccountResposeDTO activateAccount(@RequestBody ActivateAccountRequestDTO activateAccountRequestDTO){
         return authService.activateAccount(activateAccountRequestDTO);
+    }
+
+    @PostMapping("/resend-otp")
+    public ResendOtpResponseDto resendOtp(@RequestBody ResendOtpRequestDto resendOtpRequestDto){
+        return authService.resendOtp(resendOtpRequestDto);
     }
 
 }

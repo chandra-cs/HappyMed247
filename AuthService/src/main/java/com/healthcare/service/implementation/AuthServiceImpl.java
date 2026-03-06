@@ -7,6 +7,7 @@ import com.healthcare.exception.auth.UsernameAlreadyExistsException;
 import com.healthcare.mapper.RegisterModelMapper;
 import com.healthcare.model.dto.request.*;
 import com.healthcare.model.dto.response.RegisterResponseDTO;
+import com.healthcare.model.dto.response.ResendOtpResponseDto;
 import com.healthcare.model.entity.Role;
 import com.healthcare.model.entity.User;
 import com.healthcare.repository.IRoleRepository;
@@ -23,7 +24,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -96,8 +99,11 @@ public class AuthServiceImpl implements IAuthService {
         }
 
 
-        //save the user object
+        //set the otp
         user.setOtp(otp);
+        user.setOtpExpiry(LocalDateTime.now().plusMinutes(7));
+
+        //save user
         User savedUser = userRepo.save(user);
 
         return RegisterResponseDTO.builder()
@@ -121,10 +127,17 @@ public class AuthServiceImpl implements IAuthService {
             return  new ActivateAccountResposeDTO("Account is already active", true);
         }//if
 
+        //check if OTP has expired
+        if(LocalDateTime.now().isAfter(user.getOtpExpiry())) {
+            return  new ActivateAccountResposeDTO("OTP is expired, please request new one",false);
+        }
+
         //verify OTP
         if(activateAccountRequestDTO.getOtp().equals(user.getOtp())){
             //change the active status
             user.setActive(true);
+            user.setOtp(null);
+            user.setOtpExpiry(null);
 
             //save the user
             userRepo.save(user);
@@ -137,7 +150,49 @@ public class AuthServiceImpl implements IAuthService {
 
     }//activateAccount()
 
+    @Override
+    public ResendOtpResponseDto resendOtp(ResendOtpRequestDto resendOtpRequestDto) {
 
+        //find by email and password
+        User user = userRepo.findByEmail(resendOtpRequestDto.getEmail()).orElseThrow(() -> new EmailNotFoundException("Email not found, please check again."));
+        if(!encoder.matches(resendOtpRequestDto.getPassword(), user.getPassword())) {
+            return ResendOtpResponseDto.builder()
+                    .message("Invalid Password, Please check your password again!!")
+                    .status(false)
+                    .build();
+        }
+
+        //check whether is already active or not
+        if(user.isActive()){
+            return ResendOtpResponseDto
+                    .builder()
+                    .message("User already activated.please login.")
+                    .status(true)
+                    .build();
+        }
+
+        //generate new otp and set new expiry
+        String newOtp = otpGenerator.generateOtp();
+        user.setOtp(newOtp);
+        user.setOtpExpiry(LocalDateTime.now().plusMinutes(7));
+        userRepo.save(user);
+
+        //send otp via email
+        try{
+            emailService.sendOtpEmail(user.getEmail(),newOtp);
+        }catch (MessagingException e){
+            RegisterResponseDTO.builder()
+                    .message("Sending OTP failed Please try again !!")
+                    .statusCode(404)
+                    .build();
+        }
+
+
+        return ResendOtpResponseDto.builder()
+                .message("OTP has been resent to your email")
+                .status(true)
+                .build();
+    }
 
 
     //login feature
