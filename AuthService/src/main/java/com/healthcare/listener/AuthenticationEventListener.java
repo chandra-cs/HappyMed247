@@ -52,13 +52,13 @@ public class AuthenticationEventListener {
 
         System.out.println("Authentication Success");
         System.out.println(getUsernameAndPassword());
-        log.info("Login Successful for user : {}",successEvent.getAuthentication().getName());
+        //log.info("Login Successful for user : {}",successEvent.getAuthentication().getName());
     }
 
     //@EventListener
     public void onFailure(AbstractAuthenticationFailureEvent failureEvent){
         System.out.println("Authentication Failure");
-        log.error("Login Failed for user : {} due to  :{}",failureEvent.getAuthentication().getName(),failureEvent.getException().getMessage());
+     //   log.error("Login Failed for user : {} due to  :{}",failureEvent.getAuthentication().getName(),failureEvent.getException().getMessage());
     }
 
     public String getUsernameAndPassword(){
