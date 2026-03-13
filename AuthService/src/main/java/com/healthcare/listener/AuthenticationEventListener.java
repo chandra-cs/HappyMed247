@@ -26,7 +26,7 @@ public class AuthenticationEventListener {
 
 
         ---------using SecurityContextHolder-------------
-        Authentication = SecurityContextHolder.getContext().getAuthentication();(Authentication object)
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();(Authentication object)
         for username = authentication.getName();
         for password = authentication.getCredentials()
 
