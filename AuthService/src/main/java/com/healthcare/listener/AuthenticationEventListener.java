@@ -66,10 +66,13 @@ public class AuthenticationEventListener {
         return "Authentication Success :"+authentication.getName()+", Password Is:"+authentication.getCredentials().toString();
     }
 
+    /*   Was for checking whether it is loading or not
     @PostConstruct
     public void testLog() {
         log.info("AuthenticationEventLogger initialized");
     }
+
+     */
 
 
 

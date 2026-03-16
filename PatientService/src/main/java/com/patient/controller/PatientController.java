@@ -60,22 +60,22 @@ public class PatientController {
     @PostMapping("/register")
     public ResponseEntity<PatientRegistrationResponseDTO> registerPatient(@Valid @RequestBody PatientRegisterRequestDTO request) {
 
-//
-//        try {
-//            System.out.println("Class of Patient Service :");
-//            AuthServiceRegisterResponseDTO patient = patientHttpServiceClient.register(
-//                    AuthServiceRegisterRequestDTO.builder()
-//                            .username(request.getUsername())
-//                            .password(request.getPassword())
-//                            .email(request.getEmail())
-//                            .role("PATIENT")
-//                            .build()
-//            );
-//        }
-//        catch (Exception e) {
-//            System.out.println( e.getMessage() );
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
+
+        try {
+            System.out.println("Class of Patient Service :");
+            AuthServiceRegisterResponseDTO patient = patientHttpServiceClient.register(
+                    AuthServiceRegisterRequestDTO.builder()
+                            .username(request.getUsername())
+                            .password(request.getPassword())
+                            .email(request.getEmail())
+                            .role("PATIENT")
+                            .build()
+            );
+        }
+        catch (Exception e) {
+            System.out.println( e.getMessage() );
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
         /*
         //use feign client to first save the credential and check whether username exists or all security related config do thosr stuff there

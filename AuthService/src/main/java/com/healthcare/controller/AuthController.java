@@ -45,6 +45,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public RegisterResponseDTO register(@RequestBody @Valid RegisterRequestDTO req) {
+        System.out.println("Register request: " + req);
         return authService.register(req);
     }
 

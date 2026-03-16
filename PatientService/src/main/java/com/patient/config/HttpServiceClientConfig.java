@@ -7,4 +7,5 @@ import org.springframework.web.service.registry.ImportHttpServices;
 @Configuration
 @ImportHttpServices(basePackages = "com.patient.client")
 public class HttpServiceClientConfig {
+
 }
